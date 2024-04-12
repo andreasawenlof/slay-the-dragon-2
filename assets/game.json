@@ -1,0 +1,34 @@
+{
+    "player": {
+        "name": "Adventurer",
+        "inventory": []
+    },
+    "items": {
+        "sword": {
+            "name": "Mighty Sword",
+            "description": "A cool sword"
+        },
+        "key": {
+            "name": "Key",
+            "description": "Wonder where it goes?"
+        },
+        "wooden_sword": {
+            "name": "Wooden Sword",
+            "description": "Wooden Sword, seems useful"
+        }
+    },
+    "static_items": {
+        "dragon": {
+            "name": "Dragon",
+            "description": "A mighty Dragon with a breath of wildfire",
+            "actions": [
+            ]
+        },
+        "key": {
+            "name": "Chest",
+            "description": "Chest",
+            "actions": [
+            ]
+        }
+    }   
+}

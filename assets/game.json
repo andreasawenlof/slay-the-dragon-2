@@ -1,4 +1,5 @@
 {
+    "starting_room": "room1",
     "player": {
         "name": "Adventurer",
         "inventory": []
@@ -30,5 +31,51 @@
             "actions": [
             ]
         }
-    }   
+    },
+    "rooms": {
+        "room1": {
+            "name": "Room 1",
+            "description": "Cool room",
+            "actions": [
+                {
+                    "TODO": "hitta på hur actionsobjektet ska se ut"
+                },
+                {
+                }
+            
+            ],
+            "static_items": [
+                "chest"
+            ],
+            "items": [
+                "key"
+            ],
+            "exits": [
+                {
+                    "name": "room2",
+                    "description": "desc",
+                    "destination": "room2"
+                }
+            ]
+        },
+        "room2": {
+            "name": "room2",
+            "description": "Cool Room 2",
+            "actions": [
+                {
+                    "TODO": "hitta på hur actionsobjektet ska se ut"
+                },
+                {
+
+                }
+            ],
+            "exits": [
+                {
+                    "name": "room1",
+                    "description": "desc",
+                    "destination": "room1"
+                }
+            ]
+        }
+    }      
 }

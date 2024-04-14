@@ -1,5 +1,5 @@
 {
-    "starting_room": "room1",
+    "starting_room": "room2",
     "player": {
         "name": "Adventurer",
         "inventory": []

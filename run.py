@@ -17,5 +17,13 @@ with open('./assets/game.json') as f:
 print('Starting Room', game_data['starting_room'])
 
 rooms_data = game_data['rooms']
+room1 = rooms_data['room1']
 
-print(rooms_data['room1'])
+print(room1['description'])
+
+
+room1_exits = room1['exits']
+
+for exit in room1_exits:
+    print(exit['name'])
+    print(exit['description'])

@@ -53,8 +53,13 @@
             "exits": [
                 {
                     "name": "room2",
-                    "description": "desc",
+                    "description": "desc 2",
                     "destination": "room2"
+                },
+                {
+                    "name": "room1",
+                    "description": "desc 1",
+                    "destination": "room1"
                 }
             ]
         },

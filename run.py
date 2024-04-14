@@ -9,3 +9,10 @@
 """
 
 import json
+
+with open('./assets/game.json') as f:
+    game_data = json.load(f)
+
+
+print('Starting Room', game_data['starting_room'])
+

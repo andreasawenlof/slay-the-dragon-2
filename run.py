@@ -33,6 +33,12 @@ print_room(current_room)
 
 answer = prompt('Where do you want to go?: ')
 
-if (answer == ): 
+for exit in current_room['exits']:
+    if(answer == exit['name']):
+        chosen_exit = exit
+        print(chosen_exit)
 
 # print('You said: %s' % answer)
+
+    #else:
+    #    print(f"Your input is invalid, please chooose between the following exits {exit['name']}")

@@ -40,8 +40,15 @@ def select_exit(exit_name):
             chosen_exit = exit
     return chosen_exit
 
+def room_from_exit(exit):
+    exit_destination = exit['destination']
+    room = rooms_data[exit_destination]
+    return room
 
-select_exit(answer)
+
+
+current_room = room_from_exit(select_exit(answer))
+print_room(current_room)
 
 
 

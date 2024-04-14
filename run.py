@@ -2,10 +2,14 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-
+Spelaren ska kunna byta rum:
+1. Ta emot input från spelaren
+2. Tolka användarens input
+3. Kod för att byta rum
 """
 
 import json
+from prompt_toolkit import prompt
 
 with open('./assets/game.json') as f:
     game_data = json.load(f)
@@ -27,3 +31,8 @@ def print_room(room):
 
 print_room(current_room)
 
+answer = prompt('Where do you want to go?: ')
+
+if (answer == ): 
+
+# print('You said: %s' % answer)

@@ -16,3 +16,6 @@ with open('./assets/game.json') as f:
 
 print('Starting Room', game_data['starting_room'])
 
+rooms_data = game_data['rooms']
+
+print(rooms_data['room1'])

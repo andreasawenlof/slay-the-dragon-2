@@ -33,10 +33,17 @@ print_room(current_room)
 
 answer = prompt('Where do you want to go?: ')
 
-for exit in current_room['exits']:
-    if(answer == exit['name']):
-        chosen_exit = exit
-        print(chosen_exit)
+
+def select_exit(exit_name):
+    for exit in current_room['exits']:
+        if(exit_name == exit['name']):
+            chosen_exit = exit
+    return chosen_exit
+
+
+select_exit(answer)
+
+
 
 # print('You said: %s' % answer)
 

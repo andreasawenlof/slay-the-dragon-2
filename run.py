@@ -21,7 +21,8 @@ def run_game():
     while True:
       print_room(current_room)
       answer = prompt('Where do you want to go?: ')
-      current_room = room_from_exit(select_exit(answer))
+      exit = select_exit(answer, current_room)
+      current_room = room_from_exit(exit, rooms_data)
 
 
 # Function for printing out a selected room
@@ -33,17 +34,18 @@ def print_room(room):
         print(exit['description'])
 
 
-def select_exit(exit_name):
+def select_exit(exit_name, current_room):
     for exit in current_room['exits']:
         if(exit_name == exit['name']):
             chosen_exit = exit
     return chosen_exit
 
-def room_from_exit(exit):
+def room_from_exit(exit, rooms_data):
     exit_destination = exit['destination']
     room = rooms_data[exit_destination]
     return room
 
+run_game()
 
 
 # print('You said: %s' % answer)

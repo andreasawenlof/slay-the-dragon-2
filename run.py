@@ -2,10 +2,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-Spelaren ska kunna byta rum:
-1. Ta emot input från spelaren
-2. Tolka användarens input
-3. Kod för att byta rum
+Gameplayloop
 """
 
 import json
@@ -17,9 +14,15 @@ with open('./assets/game.json') as f:
 
 print('Starting Room', game_data['starting_room'])
 
-rooms_data = game_data['rooms']
-room_key = game_data['starting_room']
-current_room = rooms_data[room_key]
+def run_game():
+    rooms_data = game_data['rooms']
+    room_key = game_data['starting_room']
+    current_room = rooms_data[room_key]
+    while True:
+      print_room(current_room)
+      answer = prompt('Where do you want to go?: ')
+      current_room = room_from_exit(select_exit(answer))
+
 
 # Function for printing out a selected room
 def print_room(room):
@@ -28,10 +31,6 @@ def print_room(room):
     for exit in room_exits:
         print(exit['name'])
         print(exit['description'])
-
-print_room(current_room)
-
-answer = prompt('Where do you want to go?: ')
 
 
 def select_exit(exit_name):
@@ -44,11 +43,6 @@ def room_from_exit(exit):
     exit_destination = exit['destination']
     room = rooms_data[exit_destination]
     return room
-
-
-
-current_room = room_from_exit(select_exit(answer))
-print_room(current_room)
 
 
 

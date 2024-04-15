@@ -2,7 +2,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-Gameplayloop
+Add exit action to close the game
 """
 
 import json
@@ -20,10 +20,14 @@ def run_game():
     current_room = rooms_data[room_key]
     while True:
       print_room(current_room)
-      answer = prompt('Where do you want to go?: ')
+      answer = prompt('What to do?: ')
+      
+      #Exit the game
+      if(answer == 'exit'):
+          break
+      
       exit = select_exit(answer, current_room)
       current_room = room_from_exit(exit, rooms_data)
-
 
 # Function for printing out a selected room
 def print_room(room):

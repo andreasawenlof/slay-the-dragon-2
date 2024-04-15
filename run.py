@@ -2,7 +2,7 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-Add exit action to close the game
+
 """
 
 import json
@@ -22,12 +22,17 @@ def run_game():
       print_room(current_room)
       answer = prompt('What to do?: ')
       
+      #Got this solution by stackflow, see readme
+      action = answer.split(maxsplit=1)
+      
       #Exit the game
-      if(answer == 'exit'):
+      if(action[0] == 'exit'):
+          print('Quitting the game..... byeeeeee!')
           break
       
-      exit = select_exit(answer, current_room)
-      current_room = room_from_exit(exit, rooms_data)
+      if(action[0] == 'walk'):
+        exit = select_exit(action[1], current_room)
+        current_room = room_from_exit(exit, rooms_data)
 
 # Function for printing out a selected room
 def print_room(room):

@@ -2,9 +2,10 @@
 # You can delete these comments, but do not change the name of this file
 # Write your code to expect a terminal of 80 characters wide and 24 rows high
 """
-
+1. Show items in the current room (check)
+2. Pickup/Take the items in the current room
+3. Action to print inventory
 """
-
 import json
 from prompt_toolkit import prompt
 
@@ -34,13 +35,26 @@ def run_game():
         exit = select_exit(action[1], current_room)
         current_room = room_from_exit(exit, rooms_data)
 
+      elif (action[0] == 'take'):
+          
+
 # Function for printing out a selected room
 def print_room(room):
     print(room['description'])
+    room_items = room['items']
     room_exits = room['exits']
     for exit in room_exits:
         print(exit['name'])
         print(exit['description'])
+    
+    items = game_data['items'] 
+    for item_key in room_items:
+        print(f'Item: {items[item_key]['name']}')
+        print(f'Usage: {items[item_key]['description']}')
+    
+"""
+
+"""
 
 
 def select_exit(exit_name, current_room):
@@ -54,7 +68,11 @@ def room_from_exit(exit, rooms_data):
     room = rooms_data[exit_destination]
     return room
 
+
+
 run_game()
+
+
 
 
 # print('You said: %s' % answer)

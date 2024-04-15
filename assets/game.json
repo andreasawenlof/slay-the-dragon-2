@@ -69,11 +69,12 @@
             "actions": [
                 {
                     "TODO": "hitta på hur actionsobjektet ska se ut"
-                },
-                {
-
                 }
+            
             ],
+            "items": [
+                "sword"
+                ],
             "exits": [
                 {
                     "name": "room1",

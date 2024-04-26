@@ -64,7 +64,7 @@ def run_game():
           
 
 # Function for printing out a selected room
-def print_room(room):
+def print_room(room):sfaf
     print(room['description'])
     room_items = room['items']
     room_exits = room['exits']

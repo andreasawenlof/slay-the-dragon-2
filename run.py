@@ -31,12 +31,13 @@ def run_game():
     rooms_data = game_data['rooms']
     room_key = game_data['starting_room']
     current_room = rooms_data[room_key]
-    current_room_items = rooms_data[room_key]['items']
+    player = game_data['player']
+    items = game_data['items']
 
     while True:
-      answer = prompt('What to do?: ')
       print_room(current_room)
       print_item(current_room)
+      answer = prompt('What to do?: ')
       
       #Got this solution by stackflow, see readme
       action = answer.split(maxsplit=1)
@@ -55,7 +56,8 @@ def run_game():
         current_room = room_from_exit(exit, rooms_data)
       
       elif(action[0] == 'take'):
-          item = take_item(action[1], current_room)
+          take_item(action[1], current_room, player, items)
+          print(f'You take the.... {action[1]}')
 
           
 
@@ -76,8 +78,8 @@ def print_item(room):
         print(item_name)
         print(item_desc)
 
-def take_item(item_name, room, player):
-    item_key = get_item_key_from_item_name(item_name)
+def take_item(item_name, room, player, items):
+    item_key = get_item_key_from_item_name(item_name, items)
     remove_item_key_from_room_items(item_key, room)
     add_item_key_to_player_inventory(item_key, player)
 
@@ -96,15 +98,21 @@ def take_item(item_name, room, player):
     return item_name;
     """
 
-def get_item_key_from_item_name(item_name):
-    return 'sword' #key
+def get_item_key_from_item_name(item_name, items):
+    for key in items:
+        if(item_name == items[key]['name']):
+            return key
+    
 
 def remove_item_key_from_room_items(item_key, room):
-    
-    return
+    room_items = room['items']
+    room_items.remove(item_key)
+
+        
 
 def add_item_key_to_player_inventory(item_key, player):
-    return
+    inventory = player['inventory']
+    inventory.append(item_key)
 
 
 

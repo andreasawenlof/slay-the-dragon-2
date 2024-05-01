@@ -2,7 +2,7 @@
     "starting_room": "room2",
     "player": {
         "name": "Adventurer",
-        "inventory": []
+        "inventory": ["wooden_sword"]
     },
     "items": {
         "sword": {

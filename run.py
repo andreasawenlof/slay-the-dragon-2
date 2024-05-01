@@ -49,7 +49,12 @@ def run_game():
       
       elif action[0] == 'inventory' or action[0] == 'inv':
           print('Checking the inventory...')
-          print(game_data['player']['inventory'])
+          inventory_print_str = ""
+          for item_key in player['inventory']:
+              item_name = items[item_key]['name']
+              inventory_print_str += f'{item_name}, '
+          inventory_print_str = inventory_print_str.rstrip(', ')
+          print(inventory_print_str)
       
       elif(action[0] == 'walk'):
         exit = select_exit(action[1], current_room)

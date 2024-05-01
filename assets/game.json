@@ -1,8 +1,8 @@
 {
-    "starting_room": "room2",
+    "starting_room": "room1",
     "player": {
         "name": "Adventurer",
-        "inventory": ["wooden_sword"]
+        "inventory": []
     },
     "items": {
         "sword": {
@@ -25,11 +25,12 @@
             "actions": [
             ]
         },
-        "key": {
+        "chest": {
             "name": "Chest",
-            "description": "Chest",
+            "description": "A wooden old chest with a crack in it.",
             "actions": [
-            ]
+            ],
+            "items": ["wooden_sword"]
         }
     },
     "rooms": {
@@ -75,6 +76,10 @@
             "items": [
                 "sword"
                 ],
+            "static_items": [
+                
+                ],
+            
             "exits": [
                 {
                     "name": "room1",

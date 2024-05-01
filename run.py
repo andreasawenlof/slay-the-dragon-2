@@ -7,9 +7,21 @@ Static Items:
     Stationary in the room (cannot be moved) CHECK
         - print static items
     
-    Interaction with it
-        - get item key from item name
-        - action with item key
+    Interaction with static items
+        Define what actions are allowed with respective static items
+            - if action is allowed do action
+                - call the appropriate action function (we start with open)
+
+            - if action not allowed shame user
+                - get static item key from static item name
+                - get static item object from static item key
+                - get message from not allowed in static item object
+                - print message
+
+
+        User write to open openable static items
+            - get item key from item name
+            - action with item key
     
     
     State of item to change when interaction has been done
@@ -20,6 +32,7 @@ Static Items:
     
     
     vid interaction ska items flyttas till spelaren
+        -
 
 """
 import json

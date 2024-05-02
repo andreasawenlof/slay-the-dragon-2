@@ -87,6 +87,10 @@ def run_game():
         elif action[0] == "attack":
             attack_static_item(action[0], action[1], static_items)
 
+        elif action[0] == "open":
+            open_static_item(action[0], action[1], static_items)
+
+
 
 
 def print_inventory(player, items):
@@ -173,6 +177,21 @@ def print_not_allowed_message_from_static_item(static_item, action):
     message = static_item["not_allowed_actions"][action]["message"]
     print(message)
 
+def open_static_item(action, static_item_name, static_items):
+    static_item = get_static_item_key_from_static_item_name(static_item_name, static_items)
+    if (action in static_item["allowed_action"].keys()):
+        print_allowed_message_from_static_item(static_item, action)
+
+def get_static_item_key_from_static_item_name(static_item_name, static_items):
+    for static_item_key in static_items:
+        for static_item_key in static_items:
+            current_static_item_name = static_items[static_item_key]['name']
+            if(current_static_item_name == static_item_name):
+                return static_items[static_item_key]
+
+def print_allowed_message_from_static_item(static_item, action):
+    message = static_item["allowed_action"][action]["message"]
+    print(message)
 
 
 """

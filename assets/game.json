@@ -28,6 +28,11 @@
         "chest": {
             "name": "Chest",
             "description": "A wooden old chest with a crack in it.",
+            "allowed_action": {
+                "open": {
+                    "message": "You open the chest and inside you see something shimmering. It looks like a key..."
+                }
+            },
             "not_allowed_actions": {
                 "attack": {
                     "message": "You attack the chest, chest is still locked. "

@@ -30,7 +30,7 @@
             "description": "A wooden old chest with a crack in it.",
             "allowed_action": {
                 "open": {
-                    "message": "You open the chest and inside you see something shimmering. It looks like a key..."
+                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword..."
                 }
             },
             "not_allowed_actions": {

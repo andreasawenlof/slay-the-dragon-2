@@ -56,9 +56,9 @@ def run_game():
     print_room(current_room)
     print_static_items_from_room(current_room, static_items)
     print_item(current_room)
-    
+
     while True:
-        
+
         answer = prompt("What to do?: ")
 
         # Got this solution by stackflow, see readme
@@ -75,22 +75,20 @@ def run_game():
         elif action[0] == "walk":
             exit = select_exit(action[1], current_room)
             current_room = room_from_exit(exit, rooms_data)
-            print('You enter... ')
+            print("You enter... ")
             print_room(current_room)
             print_static_items_from_room(current_room, static_items)
             print_item(current_room)
 
         elif action[0] == "take":
-            take_item(action[1], current_room, player, items)
+            take_item(action[1], current_room, items, player)
             print(f"You take the.... {action[1]}")
 
         elif action[0] == "attack":
             attack_static_item(action[0], action[1], static_items)
 
         elif action[0] == "open":
-            open_static_item(action[0], action[1], static_items)
-
-
+            open_static_item(action[0], action[1], static_items, player)
 
 
 def print_inventory(player, items):
@@ -102,11 +100,11 @@ def print_inventory(player, items):
     inventory_print_str = inventory_print_str.rstrip(", ")
     print(inventory_print_str)
 
-def print_static_items_from_room(room, static_items):
-    for static_item_key in room['static_items']:
-        print(static_items[static_item_key]['name'])
-        print(static_items[static_item_key]['description'])
 
+def print_static_items_from_room(room, static_items):
+    for static_item_key in room["static_items"]:
+        print(static_items[static_item_key]["name"])
+        print(static_items[static_item_key]["description"])
 
 
 # Function for printing out a selected room
@@ -128,7 +126,7 @@ def print_item(room):
         print(item_desc)
 
 
-def take_item(item_name, room, player, items):
+def take_item(item_name, room, items, player):
     item_key = get_item_key_from_item_name(item_name, items)
     remove_item_key_from_room_items(item_key, room)
     add_item_key_to_player_inventory(item_key, player)
@@ -156,8 +154,9 @@ def remove_item_key_from_room_items(item_key, room):
     room_items = room["items"]
     room_items.remove(item_key)
 
+
 def remove_item_key_from_static_item(item_key, static_item):
-    items_in_static_item = static_item['items']
+    items_in_static_item = static_item["items"]
     items_in_static_item.remove(item_key)
 
 
@@ -165,36 +164,45 @@ def add_item_key_to_player_inventory(item_key, player):
     inventory = player["inventory"]
     inventory.append(item_key)
 
+
 def attack_static_item(action, static_item_name, static_items):
     static_item = get_static_item_from_static_item_name(static_item_name, static_items)
-    
-    if (action in static_item["not_allowed_actions"].keys()):
-        print_not_allowed_message_from_static_item(static_item, action) 
+
+    if action in static_item["not_allowed_actions"].keys():
+        print_not_allowed_message_from_static_item(static_item, action)
+
 
 def get_static_item_from_static_item_name(static_item_name, static_items):
     for static_item_key in static_items:
-        current_static_item_name = static_items[static_item_key]['name']
-        if(current_static_item_name == static_item_name):
+        current_static_item_name = static_items[static_item_key]["name"]
+        if current_static_item_name == static_item_name:
             return static_items[static_item_key]
+
 
 def print_not_allowed_message_from_static_item(static_item, action):
     message = static_item["not_allowed_actions"][action]["message"]
     print(message)
 
-def open_static_item(action, static_item_name, static_items):
-    static_item_key = get_static_item_key_from_static_item_name(static_item_name, static_items)
-    static_item = static_items[static_item_key]
-    if (action in static_item["allowed_action"].keys()):
-        print_allowed_message_from_static_item(static_item, action)
 
+def open_static_item(action, static_item_name, static_items, player):
+    static_item_key = get_static_item_key_from_static_item_name(
+        static_item_name, static_items
+    )
+    static_item = static_items[static_item_key]
+    if action in static_item["allowed_action"].keys():
+        print_allowed_message_from_static_item(static_item, action)
+        for item_key in static_item["items"]:
+            add_item_key_to_player_inventory(item_key, player)
+        static_item["items"] = []
 
 
 def get_static_item_key_from_static_item_name(static_item_name, static_items):
     for static_item_key in static_items:
         for static_item_key in static_items:
-            current_static_item_name = static_items[static_item_key]['name']
-            if(current_static_item_name == static_item_name):
+            current_static_item_name = static_items[static_item_key]["name"]
+            if current_static_item_name == static_item_name:
                 return static_item_key
+
 
 def print_allowed_message_from_static_item(static_item, action):
     message = static_item["allowed_action"][action]["message"]

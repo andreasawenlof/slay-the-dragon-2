@@ -156,6 +156,10 @@ def remove_item_key_from_room_items(item_key, room):
     room_items = room["items"]
     room_items.remove(item_key)
 
+def remove_item_key_from_static_item(item_key, static_item):
+    items_in_static_item = static_item['items']
+    items_in_static_item.remove(item_key)
+
 
 def add_item_key_to_player_inventory(item_key, player):
     inventory = player["inventory"]
@@ -178,16 +182,19 @@ def print_not_allowed_message_from_static_item(static_item, action):
     print(message)
 
 def open_static_item(action, static_item_name, static_items):
-    static_item = get_static_item_key_from_static_item_name(static_item_name, static_items)
+    static_item_key = get_static_item_key_from_static_item_name(static_item_name, static_items)
+    static_item = static_items[static_item_key]
     if (action in static_item["allowed_action"].keys()):
         print_allowed_message_from_static_item(static_item, action)
+
+
 
 def get_static_item_key_from_static_item_name(static_item_name, static_items):
     for static_item_key in static_items:
         for static_item_key in static_items:
             current_static_item_name = static_items[static_item_key]['name']
             if(current_static_item_name == static_item_name):
-                return static_items[static_item_key]
+                return static_item_key
 
 def print_allowed_message_from_static_item(static_item, action):
     message = static_item["allowed_action"][action]["message"]

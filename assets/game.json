@@ -15,89 +15,78 @@
         },
         "wooden_sword": {
             "name": "Wooden Sword",
-            "description": "Wooden Sword, seems useful"
+            "description": "A Wooden Sword. Seems useful...",
+            "take": {
+                "message": "You take the Wooden Sword. It doesn't look like it's see it's best days but maybe still has it's usability. Maybe you can slay a tiny mouse without it breakin."
+            }
         }
     },
     "static_items": {
         "dragon": {
             "name": "Dragon",
             "description": "A mighty Dragon with a breath of wildfire",
-            "actions": [
-            ]
+            "actions": []
         },
         "chest": {
             "name": "Chest",
             "description": "A wooden old chest with a crack in it.",
             "allowed_action": {
                 "open": {
-                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword. You take the Sword..."
+                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword."
                 }
             },
             "not_allowed_actions": {
                 "attack": {
                     "message": "You attack the chest, chest is still locked. "
                 }
-            }
-                
-                
-            ,
+            },
+
             "items": ["wooden_sword"]
         }
     },
     "rooms": {
         "room1": {
             "name": "Room 1",
-            "description": "Cool room",
+            "description": "You found yourself in a dank cellar with a chilly breeze...",
             "actions": [
                 {
                     "TODO": "hitta på hur actionsobjektet ska se ut"
                 },
-                {
-                }
-            
+                {}
             ],
-            "static_items": [
-                "chest"
-            ],
-            "items": [
-                "key"
-            ],
+            "static_items": ["chest"],
+            "items": ["key"],
             "exits": [
                 {
-                    "name": "room2",
-                    "description": "desc 2",
+                    "name": "Wooden door",
+                    "description": "You look around and see a wooden old door.",
                     "destination": "room2"
                 },
                 {
-                    "name": "strange path",
-                    "description": "desc 1",
+                    "name": "A dark hole",
+                    "description": "A hole in the wall i think I can squeeze through it.",
                     "destination": "room1"
                 }
             ]
         },
         "room2": {
-            "name": "room2",
-            "description": "Cool Room 2",
+            "name": "A cozy room",
+            "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
             "actions": [
                 {
                     "TODO": "hitta på hur actionsobjektet ska se ut"
                 }
-            
             ],
-            "items": [
-                "sword"
-                ],
-            "static_items": [
-                
-                ],
-            
+            "items": ["sword"],
+            "static_items": [],
+
             "exits": [
                 {
-                    "name": "room1",
-                    "description": "desc",
+                    "name": "A metal door",
+                    "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
                     "destination": "room1"
                 }
             ]
         }
-    }      
+    }
 }

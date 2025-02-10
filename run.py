@@ -6,7 +6,7 @@
 Static Items:
     Stationary in the room (cannot be moved) CHECK
         - print static items
-    
+
     Interaction with static items
         Define what actions are allowed with respective static items
             - if action is allowed do action
@@ -22,15 +22,15 @@ Static Items:
         User write to open openable static items (COMPLETE LATER just add an empty function)
             - get item key from item name
             - action with item key
-    
-    
+
+
     State of item to change when interaction has been done
-    
-    
+
+
     static item kunna ha items i sig: CHECKED
-        - ändra i json så att items kan vara i static items 
-    
-    
+        - ändra i json så att items kan vara i static items
+
+
     vid interaction ska items flyttas till spelaren
         -
 
@@ -48,6 +48,7 @@ print("Starting Room", game_data["starting_room"])
 def run_game():
     rooms_data = game_data["rooms"]
     room_key = game_data["starting_room"]
+    previous_room = None
     current_room = rooms_data[room_key]
     player = game_data["player"]
     items = game_data["items"]
@@ -74,11 +75,10 @@ def run_game():
 
         elif action[0] == "walk":
             exit = select_exit(action[1], current_room)
+            previous_room = current_room
             current_room = room_from_exit(exit, rooms_data)
             print("You enter... ")
-            print_room(current_room)
-            print_static_items_from_room(current_room, static_items)
-            print_item(current_room)
+            print_entire_room(current_room, static_items)
 
         elif action[0] == "take":
             take_item(action[1], current_room, items, player)
@@ -89,6 +89,34 @@ def run_game():
 
         elif action[0] == "open":
             open_static_item(action[0], action[1], static_items, player)
+        elif action[0] == "look_around":
+            print("You look around and see...")
+            print_entire_room(current_room, static_items)
+        elif action[0] == "go_back":
+            if previous_room is None:
+                print("I can't go back!")
+            else:
+                current_room = previous_room
+                print_entire_room(current_room, static_items)
+                previous_room = None
+        else:
+            print("I don't know how to do " + action[0])
+            print('''I know how to: 
+                    walk [room name]
+                    take [item name]
+                    attack [name of something in the room]
+                    open [name of something in the room]
+                    look_around
+                    go_back
+                    inventory     
+                    exit << to quit the game >> 
+                  ''')
+
+
+def print_entire_room(room, static_items):
+    print_room(room)
+    print_static_items_from_room(room, static_items)
+    print_item(room)
 
 
 def print_inventory(player, items):
@@ -166,7 +194,8 @@ def add_item_key_to_player_inventory(item_key, player):
 
 
 def attack_static_item(action, static_item_name, static_items):
-    static_item = get_static_item_from_static_item_name(static_item_name, static_items)
+    static_item = get_static_item_from_static_item_name(
+        static_item_name, static_items)
 
     if action in static_item["not_allowed_actions"].keys():
         print_not_allowed_message_from_static_item(static_item, action)

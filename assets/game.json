@@ -10,15 +10,13 @@
             "description": "A cool sword"
         },
         "key": {
+            "category": "exit_opener",
             "name": "Key",
             "description": "I wonder where it goes?"
         },
         "wooden_sword": {
             "name": "Wooden Sword",
-            "description": "A Wooden Sword. Seems useful...",
-            "take": {
-                "message": "You take the Wooden Sword. It doesn't look like it's see it's best days but maybe still has it's usability. Maybe you can slay a tiny mouse without it breakin."
-            }
+            "description": "A Wooden Sword, seems useful"
         }
     },
     "static_items": {
@@ -32,7 +30,7 @@
             "description": "A wooden old chest with a crack in it.",
             "allowed_action": {
                 "open": {
-                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword."
+                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword. You take the Sword..."
                 }
             },
             "not_allowed_actions": {
@@ -60,7 +58,14 @@
                 {
                     "name": "Wooden door",
                     "description": "You look around and see a wooden old door.",
-                    "destination": "room2"
+                    "destination": "room2",
+                    "locked": true,
+                    "locked_description": "You try to openx it but to no avail, the door is locked but you see a rusty keyhole. Maybe there is something you can fit in it.",
+                    "exit_openers": {
+                        "key": {
+                            "open_description": "You put in the key and it fits perfectly, you turn it around and slowly open the wooden door. It creaks worse than your hungry stomach."
+                        }
+                    }
                 },
                 {
                     "name": "A dark hole",

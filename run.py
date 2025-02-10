@@ -60,7 +60,7 @@ def run_game():
 
     while True:
 
-        answer = prompt("What to do?: ")
+        answer = prompt("What to do?:\n")
 
         # Got this solution by stackflow, see readme
         action = answer.split(maxsplit=1)
@@ -75,10 +75,13 @@ def run_game():
 
         elif action[0] == "walk":
             exit = select_exit(action[1], current_room)
-            previous_room = current_room
-            current_room = room_from_exit(exit, rooms_data)
-            print("You enter... ")
-            print_entire_room(current_room, static_items)
+            if exit["locked"]:
+                print(exit["locked_description"])
+            else:
+                previous_room = current_room
+                current_room = room_from_exit(exit, rooms_data)
+                print("You enter... ")
+                print_entire_room(current_room, static_items)
 
         elif action[0] == "take":
             take_item(action[1], current_room, items, player)
@@ -89,6 +92,24 @@ def run_game():
 
         elif action[0] == "open":
             open_static_item(action[0], action[1], static_items, player)
+
+        elif action[0] == "use":
+            # TODO: It should also return the item_key (dict key)
+            (item_key, item) = get_item_from_inventory(
+                items, action[1], player)
+            use_on = prompt("What do you want to use the item with? \n")
+            if item["category"] == "exit_opener":
+                exit = select_exit(use_on, current_room)
+                exit_event = exit["exit_openers"][item_key]
+                if exit_event:
+                    exit["locked"] = False
+                    print(exit_event["open_description"])
+                else:
+                    print("You cannot open this door. ")
+
+                # print(use_on, item)
+
+                # use_inventory_item(action[1], )
         elif action[0] == "look_around":
             print("You look around and see...")
             print_entire_room(current_room, static_items)
@@ -158,6 +179,13 @@ def take_item(item_name, room, items, player):
     item_key = get_item_key_from_item_name(item_name, items)
     remove_item_key_from_room_items(item_key, room)
     add_item_key_to_player_inventory(item_key, player)
+
+
+def get_item_from_inventory(items, item_name, player):
+    for item_key, item in items.items():
+        if item["name"] == item_name:
+            if item_key in player["inventory"]:
+                return (item_key, item)
 
     """
     room_item_list = game_data['rooms'][room]['items']

@@ -47,9 +47,9 @@ print("Starting Room", game_data["starting_room"])
 
 def run_game():
     rooms_data = game_data["rooms"]
-    room_key = game_data["starting_room"]
+    starting_room_key = game_data["starting_room"]
     previous_room = None
-    current_room = rooms_data[room_key]
+    current_room = rooms_data[starting_room_key]
     player = game_data["player"]
     items = game_data["items"]
     static_items = game_data["static_items"]
@@ -106,6 +106,9 @@ def run_game():
                     print(exit_event["open_description"])
                 else:
                     print("You cannot open this door. ")
+            elif item["category"] == "static_item_effect":
+                static_item = get_static_item_from_static_item_name(
+                    use_on, static_items)
 
                 # print(use_on, item)
 

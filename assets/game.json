@@ -15,15 +15,26 @@
             "description": "I wonder where it goes?"
         },
         "wooden_sword": {
+            "category": "static_item_effect",
             "name": "Wooden Sword",
-            "description": "A Wooden Sword, seems useful"
+            "description": "A Wooden Sword, seems useful",
+            "use_on": {
+                "dragon": {
+                    "effects": [
+                        {
+                            "type": "die",
+                            "message": "You die."
+                        }
+                    ],
+                    "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
+                }
+            }
         }
     },
     "static_items": {
         "dragon": {
             "name": "Dragon",
-            "description": "A mighty Dragon with a breath of wildfire",
-            "actions": []
+            "description": "A mighty Dragon with a breath of wildfire"
         },
         "chest": {
             "name": "Chest",

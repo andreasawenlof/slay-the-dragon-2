@@ -107,12 +107,24 @@ def run_game():
                 else:
                     print("You cannot open this door. ")
             elif item["category"] == "static_item_effect":
-                static_item = get_static_item_from_static_item_name(
+                (static_item_key, static_item) = get_static_item_from_static_item_name(
                     use_on, static_items)
+                item_effects = item["use_on"][static_item_key]["effects"]
+                for effect in item_effects:
+                    if effect["type"] == "die":
+                        print(effect["message"])
+                        return
+                        # TODO: Return closes the game loop but it's not the correct to loose the game
+                    elif effect["type"] == "add_item":
+                        print(effect["message"])
+                        add_item_key_to_player_inventory(
+                            effect["item_key"], player)
 
-                # print(use_on, item)
+                        # TODO: Not yet implemented / this is a placeholder
 
-                # use_inventory_item(action[1], )
+                        # print(use_on, item)
+
+                        # use_inventory_item(action[1], )
         elif action[0] == "look_around":
             print("You look around and see...")
             print_entire_room(current_room, static_items)
@@ -225,7 +237,7 @@ def add_item_key_to_player_inventory(item_key, player):
 
 
 def attack_static_item(action, static_item_name, static_items):
-    static_item = get_static_item_from_static_item_name(
+    (static_item_key, static_item) = get_static_item_from_static_item_name(
         static_item_name, static_items)
 
     if action in static_item["not_allowed_actions"].keys():
@@ -236,7 +248,7 @@ def get_static_item_from_static_item_name(static_item_name, static_items):
     for static_item_key in static_items:
         current_static_item_name = static_items[static_item_key]["name"]
         if current_static_item_name == static_item_name:
-            return static_items[static_item_key]
+            return (static_item_key, static_items[static_item_key])
 
 
 def print_not_allowed_message_from_static_item(static_item, action):

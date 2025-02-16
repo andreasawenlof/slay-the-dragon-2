@@ -42,7 +42,7 @@ with open("./assets/game.json") as f:
     game_data = json.load(f)
 
 
-print("Starting Room", game_data["starting_room"])
+# print("Starting Room", game_data["starting_room"])
 
 
 def run_game():
@@ -120,6 +120,9 @@ def run_game():
                         add_item_key_to_player_inventory(
                             effect["item_key"], player)
 
+                    elif effect["type"] == "win_game":
+                        print(effect["message"])
+
                         # TODO: Not yet implemented / this is a placeholder
 
                         # print(use_on, item)
@@ -136,7 +139,7 @@ def run_game():
                 print_entire_room(current_room, static_items)
                 previous_room = None
         else:
-            print("I don't know how to do " + action[0])
+            print("I don't know how to... " + action[0])
             print('''I know how to: 
                     walk [room name]
                     take [item name]

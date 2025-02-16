@@ -8,13 +8,13 @@
         "sword": {
             "category": "static_item_effect",
             "name": "Mighty Sword",
-            "description": "A cool sword",
+            "description": "A mighty Sword, so sharp it can cut through chese.",
             "use_on": {
                 "dragon": {
                     "effects": [
                         {
-                            "type": "kill_dragon",
-                            "message": "With a big swoooosh, and roll and tuck you manage to slay the dragon. Congratulations, you've just won the game!"
+                            "type": "win_game",
+                            "message": "With a deep breath, you raise the Mighty Sword. As you charge, the blade ignites in radiant light. The Dragon roars, lunging toward you—but with a single, precise strike, you plunge the sword deep into its heart. A deafening cry fills the chamber before silence falls…, You have slain the Dragon."
                         }
                     ]
                 }
@@ -25,11 +25,6 @@
             "name": "Key",
             "description": "I wonder where it goes?"
         },
-        "fish": {
-            "category": "exit_opener",
-            "name": "Fish",
-            "description": "A strange key shaped fish, Mmm now you don't smell good.."
-        },
         "wooden_sword": {
             "category": "static_item_effect",
             "name": "Wooden Sword",
@@ -39,18 +34,10 @@
                     "effects": [
                         {
                             "type": "die",
-                            "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
+                            "message": "You die."
                         }
-                    ]
-                },
-                "chest": {
-                    "effects": [
-                        {
-                            "type": "add_item",
-                            "message": "For some reason a fish appeared in your inventory",
-                            "item_key": "fish"
-                        }
-                    ]
+                    ],
+                    "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
                 }
             }
         }
@@ -60,217 +47,73 @@
             "name": "Dragon",
             "description": "A mighty Dragon with a breath of wildfire"
         },
-        "static_items": {
-            "dragon": {
-                "name": "Lying dead man",
-                "description": "A dead man while you observing it you can see a glimmering light",
-                "allowed_action": {
-                    "search": {
-                        "message": "You search the dead man and see a glimmering light, looks like a key. You take the key"
-                    }
-                },
-                "not_allowed_actions": {
-                    "take": {
-                        "message": "You cannot take the dead man, also don't be weird."
-                    }
+        "chest": {
+            "name": "Chest",
+            "description": "A wooden old chest with a crack in it.",
+            "allowed_action": {
+                "open": {
+                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword. You take the Sword..."
                 }
             },
-            "chest": {
-                "name": "Chest",
-                "description": "A wooden old chest with a crack in it.",
-                "allowed_action": {
-                    "open": {
-                        "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword. You take the Sword..."
-                    }
-                },
-                "not_allowed_actions": {
-                    "attack": {
-                        "message": "You attack the chest, chest is still locked. "
-                    }
-                },
+            "not_allowed_actions": {
+                "attack": {
+                    "message": "You attack the chest, chest is still locked. "
+                }
+            },
 
-                "items": ["wooden_sword"]
-            }
+            "items": ["wooden_sword"]
+        }
+    },
+    "rooms": {
+        "room1": {
+            "name": "Room 1",
+            "description": "You found yourself in a dank cellar with a chilly breeze...",
+            "actions": [
+                {
+                    "TODO": "hitta på hur actionsobjektet ska se ut"
+                },
+                {}
+            ],
+            "static_items": ["chest"],
+            "items": ["key"],
+            "exits": [
+                {
+                    "name": "Wooden door",
+                    "description": "You look around and see a wooden old door.",
+                    "destination": "room2",
+                    "locked": true,
+                    "locked_description": "You try to open it but to no avail, the door is locked but you see a rusty keyhole. Maybe there is something you can fit in it.",
+                    "exit_openers": {
+                        "key": {
+                            "open_description": "You put in the key and it fits perfectly, you turn it around and slowly open the wooden door. It creaks worse than your hungry stomach."
+                        }
+                    }
+                },
+                {
+                    "name": "A dark hole",
+                    "description": "A hole in the wall i think I can squeeze through it.",
+                    "destination": "room1"
+                }
+            ]
         },
-        "rooms": {
-            "room1": {
-                "name": "Room 1",
-                "description": "You found yourself in a dank cellar with a chilly breeze...",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    },
-                    {}
-                ],
-                "static_items": ["chest"],
-                "items": ["key"],
-                "exits": [
-                    {
-                        "name": "Wooden door",
-                        "description": "You look around and see a wooden old door.",
-                        "destination": "room2",
-                        "locked": true,
-                        "locked_description": "You try to open it but to no avail, the door is locked but you see a rusty keyhole. Maybe there is something you can fit in it.",
-                        "exit_openers": {
-                            "key": {
-                                "open_description": "You put in the key and it fits perfectly, you turn it around and slowly open the wooden door. It creaks worse than your hungry stomach."
-                            }
-                        }
-                    },
-                    {
-                        "name": "A dark hole",
-                        "description": "A hole in the wall i think I can squeeze through it.",
-                        "destination": "room1",
-                        "locked": false
-                    },
-                    {
-                        "name": "Walk Room 4",
-                        "description": "Walk Room 4",
-                        "destination": "room4",
-                        "locked": false
-                    }
-                ]
-            },
-            "room2": {
-                "name": "Dead mans room",
-                "description": "Dead person on the floor",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "items": ["key"],
-                "static_items": ["dead_man"],
+        "room2": {
+            "name": "A cozy room",
+            "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
+            "actions": [
+                {
+                    "TODO": "hitta på hur actionsobjektet ska se ut"
+                }
+            ],
+            "items": ["sword"],
+            "static_items": ["dragon"],
 
-                "exits": [
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room5",
-                        "locked": false
-                    }
-                ]
-            },
-            "room4": {
-                "name": "A cozy room",
-                "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "items": [],
-                "static_items": [],
-
-                "exits": [
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room7",
-                        "locked": false
-                    },
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room5",
-                        "locked": false
-                    }
-                ]
-            },
-            "room5": {
-                "name": "A cozy room",
-                "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "items": ["sword"],
-                "static_items": [],
-
-                "exits": [
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room2",
-                        "locked": false
-                    },
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room4",
-                        "locked": false
-                    }
-                ]
-            },
-            "room7": {
-                "name": "A cozy room",
-                "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "items": ["wooden_sword"],
-                "static_items": ["chest"],
-
-                "exits": [
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room4",
-                        "locked": false
-                    },
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room8",
-                        "locked": false
-                    }
-                ]
-            },
-            "room8": {
-                "name": "A cozy room",
-                "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "items": ["sword"],
-                "static_items": [],
-
-                "exits": [
-                    {
-                        "name": "A metal door",
-                        "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                        "destination": "room7",
-                        "locked": false
-                    },
-                    {
-                        "name": "The boss door",
-                        "description": "boss door",
-                        "destination": "room9",
-                        "locked": true,
-                        "locked_description": "You try to open it but to no avail, the door is locked but you see a rusty keyhole. Maybe there is something you can fit in it.",
-                        "exit_openers": {
-                            "key": {
-                                "open_description": "You put in the key and it fits perfectly, you turn it around and slowly open the wooden door. It creaks worse than your hungry stomach."
-                            }
-                        }
-                    }
-                ]
-            },
-            "room9": {
-                "name": "Dragon Room",
-                "description": "Dragon",
-                "actions": [
-                    {
-                        "TODO": "hitta på hur actionsobjektet ska se ut"
-                    }
-                ],
-                "static_items": ["dragon"]
-            }
+            "exits": [
+                {
+                    "name": "A metal door",
+                    "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
+                    "destination": "room1"
+                }
+            ]
         }
     }
 }

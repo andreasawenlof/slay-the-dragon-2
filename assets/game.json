@@ -92,7 +92,8 @@
                 {
                     "name": "A dark hole",
                     "description": "A hole in the wall i think I can squeeze through it.",
-                    "destination": "room1"
+                    "destination": "room1",
+                    "locked": false
                 }
             ]
         },

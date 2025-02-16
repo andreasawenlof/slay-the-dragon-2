@@ -72,71 +72,107 @@ def run_game():
             break
 
         elif action[0] == "inventory" or action[0] == "inv":
-            print_inventory(player, items)
+            if len(player["inventory"]) == 0:
+                print("You have nothing in your inventory.")
+            else:
+                print_inventory(player, items)
 
         elif action[0] == "walk":
-            exit = select_exit(action[1], current_room)
-            if exit["locked"]:
-                print(exit["locked_description"])
+            if len(action) == 1:  # No destination provided
+                print(
+                    "Walk where?\nYou need to specify where to walk. Try: walk [exit]")
             else:
-                previous_room = current_room
-                current_room = room_from_exit(exit, rooms_data)
-                print("You enter... ")
-                print_entire_room(current_room, static_items)
+                exit = select_exit(action[1], current_room)
+                if exit["locked"]:
+                    print(exit["locked_description"])
+                else:
+                    previous_room = current_room
+                    current_room = room_from_exit(exit, rooms_data)
+                    print("You enter... ")
+                    print_entire_room(current_room, static_items)
 
         elif action[0] == "take":
-            item_key = get_item_key_from_item_name(action[1], items)
-            if item_key not in current_room["items"]:
-                print(f"There is no '{action[1]}' here.")
+            if len(action) == 1:  # No item provided
+                print(
+                    "Take what? \nYou need to specify what to take. Try: take [item]")
             else:
-                take_item(action[1], current_room, items, player)
-                print(f"You take the.... {action[1]}")
+                item_key = get_item_key_from_item_name(action[1], items)
+                if item_key not in current_room["items"]:
+                    print(f"There is no '{action[1]}' here.")
+                else:
+                    take_item(action[1], current_room, items, player)
+                    print(f"You take the.... {action[1]}")
 
         elif action[0] == "attack":
-            attack_static_item(action[0], action[1], static_items)
+            if len(action) == 1:  # No item provided
+                print(
+                    "Attack what? \nYou need to specify what you want to attack. Try: attack [item]")
+            else:
+                attack_static_item(action[0], action[1], static_items)
 
         elif action[0] == "open":
-            open_static_item(action[0], action[1], static_items, player)
+            if len(action) == 1:  # No item provided
+                print(
+                    "Open what? \nYou need to specify what to open. Try: open [item]")
+            else:
+                open_static_item(action[0], action[1], static_items, player)
 
         elif action[0] == "use":
             # TODO: It should also return the item_key (dict key)
-            (item_key, item) = get_item_from_inventory(
-                items, action[1], player)
-
-            if item_key is None:  # Item not found in inventory
-                print(f"You don’t have '{action[1]}' in your inventory!")
+            if len(action) == 1:  # No item provided
+                print(
+                    "Use what? \nYou need to specify an item to use. Try: use [item]")
             else:
-                use_on = prompt("What do you want to use the item with? \n")
-                if item["category"] == "exit_opener":
-                    exit = select_exit(use_on, current_room)
-                    exit_event = exit["exit_openers"][item_key]
-                    if exit_event:
-                        exit["locked"] = False
-                        print(exit_event["open_description"])
-                    else:
-                        print("You cannot open this door. ")
-                elif item["category"] == "static_item_effect":
-                    (static_item_key, static_item) = get_static_item_from_static_item_name(
-                        use_on, static_items)
-                    item_effects = item["use_on"][static_item_key]["effects"]
-                    for effect in item_effects:
-                        if effect["type"] == "die":
-                            print(effect["message"])
-                            return
-                            # TODO: Return closes the game loop but it's not the correct to loose the game
-                        elif effect["type"] == "add_item":
-                            print(effect["message"])
-                            add_item_key_to_player_inventory(
-                                effect["item_key"], player)
+                (item_key, item) = get_item_from_inventory(
+                    items, action[1], player)
 
-                        elif effect["type"] == "win_game":
-                            print(effect["message"])
+                if item_key is None:  # Item not found in inventory
+                    print(f"You don’t have '{action[1]}' in your inventory!")
+                else:
+                    use_on = prompt(
+                        "What do you want to use the item with? \n")
+                    if item["category"] == "exit_opener":
+                        exit = select_exit(use_on, current_room)
+                        if exit is None:
+                            print(f"There is no exit called '{use_on}'.")
+                        else:
+                            exit_event = exit.get(
+                                "exit_openers", {}).get(item_key)
+                            if exit_event:
+                                exit["locked"] = False
+                                print(exit_event["open_description"])
+                            else:
+                                print(
+                                    f"You can't use '{action[1]}' on '{use_on}'.")
+                    elif item["category"] == "static_item_effect":
+                        static_item_data = get_static_item_from_static_item_name(
+                            use_on, static_items)
 
-                            # TODO: Not yet implemented / this is a placeholder
+                        if static_item_data is None:
+                            print(
+                                f"You can't use '{action[1]}' on '{use_on}'.")
+                        else:
+                            static_item_key, static_item = static_item_data
+                            item_effects = item["use_on"].get(
+                                static_item_key, {}).get("effects", [])
+                            for effect in item_effects:
+                                if effect["type"] == "die":
+                                    print(effect["message"])
+                                    return
+                                    # TODO: Return closes the game loop but it's not the correct to loose the game
+                                elif effect["type"] == "add_item":
+                                    print(effect["message"])
+                                    add_item_key_to_player_inventory(
+                                        effect["item_key"], player)
 
-                            # print(use_on, item)
+                                elif effect["type"] == "win_game":
+                                    print(effect["message"])
 
-                            # use_inventory_item(action[1], )
+                                    # TODO: Not yet implemented / this is a placeholder
+
+                                    # print(use_on, item)
+
+                                    # use_inventory_item(action[1], )
         elif action[0] == "look_around":
             print("You look around and see...")
             print_entire_room(current_room, static_items)
@@ -302,8 +338,10 @@ def print_allowed_message_from_static_item(static_item, action):
 def select_exit(exit_name, current_room):
     for exit in current_room["exits"]:
         if exit_name == exit["name"]:
-            chosen_exit = exit
-    return chosen_exit
+            return exit  # ✅ Returns the correct exit immediately
+    # ❌ Handles invalid exits properly
+    print(f"I don't know how to go to '{exit_name}'.")
+    return None  # ✅ Always returns a value (prevents crash)
 
 
 def room_from_exit(exit, rooms_data):

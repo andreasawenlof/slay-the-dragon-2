@@ -168,7 +168,7 @@
         },
         "room6": {
             "name": "Treasure Room",
-            "description": "A forgotten treasure chest sits abandoned in the middle of the chamber.",
+            "description": "An enormous treasure room with all its riches surrounding you. The feeling of greed is very strong with you right now",
             "items": [],
             "static_items": ["chest"],
             "exits": [

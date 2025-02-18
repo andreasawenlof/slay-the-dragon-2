@@ -1,6 +1,6 @@
 # Slay the Dragon - A Text-Based RPG
 
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+![STD logo](documents/std_logo.png)
 
 ## Introduction
 
@@ -34,11 +34,11 @@ Players interact with the game using simple **text-based commands:**
 
 -   `walk [room name]` – Move to a different room.
 -   `look_around` – Inspect your surroundings.
+-   `go_back` – Go back to the last previous room.
 -   `take [item]` – Pick up an item.
 -   `use [item]` – Use an item from your inventory.
 -   `inventory` – View items you’re carrying.
--   `attack [enemy]` – Engage in combat (if applicable).
--   `open [object]` – Interact with static objects (like doors or chests).
+-   `open [object]` – Interact with static objects (like chests/skeletons).
 -   `exit` – Quit the game.
 
 ---
@@ -47,7 +47,7 @@ Players interact with the game using simple **text-based commands:**
 
 Here’s a visual representation of the game’s structure:
 
-_**[Insert Flowchart Image Here]**_
+_**![Flowchart](documents/flowchart.png)**_
 
 ---
 
@@ -56,6 +56,7 @@ _**[Insert Flowchart Image Here]**_
 -   **Python** – Core game logic.
 -   **JSON** – Stores game data (rooms, items, interactions).
 -   **prompt_toolkit** – Handles user input for a smooth experience.
+-   **time** – Handles the timer to see how quick one solves the game.
 
 ---
 
@@ -84,9 +85,11 @@ _**[Insert Flowchart Image Here]**_
 
 -   **Manual playtesting** – Ensured the game works as expected.
 -   **Edge case handling** – Checked for invalid inputs and errors.
--   **PEP8 validation** – Confirmed code follows best practices.
+-   **PEP8 validation** – Confirmed code follows best practices (except a few long lines).
 
----
+For detailed testing documentation, including **edge cases, error handling, and game-breaking scenarios**, please refer to:
+
+## 📄 **[testing.md](documents/TESTING.md)**
 
 ## Deployment
 
@@ -110,9 +113,9 @@ This project was deployed using **Code Institute’s mock terminal** on **Heroku
 
 ## Credits
 
--   **Game Concept & Development** – Your Name
+-   **Game Concept & Development** – Andréas Awenlöf
 -   **Inspiration** – Classic RPGs like **Zelda**, **D&D**, and retro text adventures.
--   **Resources & Libraries** – Python, prompt_toolkit, JSON.
+-   **Resources & Libraries** – Python, prompt_toolkit, JSON, time.
 
 ---
 

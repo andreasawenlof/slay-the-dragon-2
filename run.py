@@ -1,4 +1,3 @@
-
 import json
 import time
 from prompt_toolkit import prompt
@@ -109,8 +108,11 @@ def run_game():
             else:
                 exit = select_exit(action[1], current_room)
                 if exit is None:  # Exit doesn't exist
-                    print(f"There is no exit named " +
-                          action[1] + " in this room.")
+                    print(
+                        f"There is no exit named "
+                        + action[1]
+                        + " in this room."
+                    )
                 elif exit["locked"]:
                     print(exit["locked_description"])
                 else:
@@ -122,7 +124,8 @@ def run_game():
         elif action[0] == "take":
             if len(action) == 1:  # No item provided
                 print(
-                    "Take what? \nYou need to specify what to take. Try: take [item]")
+                    "Take what? \nYou need to specify what to take. Try: take [item]"
+                )
             else:
                 item_key = get_item_key_from_item_name(action[1], items)
                 static_item_key = get_static_item_key_from_static_item_name(
@@ -130,7 +133,8 @@ def run_game():
                 )
                 if static_item_key in current_room["static_items"]:
                     print(
-                        f"I can't put {action[1].title()} in my pocket, it doesn't fit."
+                        f"I can't put {
+                            action[1].title()} in my pocket, it doesn't fit."
                     )
                 elif item_key not in current_room["items"]:
                     print(f"I can't take {action[1].title()}.")
@@ -141,7 +145,10 @@ def run_game():
         elif action[0] == "attack" or action[0] == "open":
             if len(action) == 1:  # No target provided
                 print(
-                    f"{action[0].capitalize()} what? \nYou need to specify what to {action[0]}. Try: {action[0]} [item]"
+                    f"{
+                        action[0].capitalize()} what? \nYou need to specify what to {
+                        action[0]}. Try: {
+                        action[0]} [item]"
                 )
             else:
                 static_item_data = get_static_item_from_static_item_name(
@@ -158,17 +165,25 @@ def run_game():
                         print(
                             static_item["allowed_action"][action[0]]["message"]
                         )  # Print success message
-                        if action[0] == "open":  # If opening, move items to player
+                        if (
+                            action[0] == "open"
+                        ):  # If opening, move items to player
                             for item_key in static_item.get("items", []):
                                 add_item_key_to_player_inventory(
-                                    item_key, player)
+                                    item_key, player
+                                )
                             static_item["items"] = []
 
                     # ❌ Show message if action is NOT allowed
-                    elif action[0] in static_item.get("not_allowed_actions", {}):
+                    elif action[0] in static_item.get(
+                        "not_allowed_actions", {}
+                    ):
                         # Print failure message
-                        print(static_item["not_allowed_actions"]
-                              [action[0]]["message"])
+                        print(
+                            static_item["not_allowed_actions"][action[0]][
+                                "message"
+                            ]
+                        )
 
                     else:
                         print(f"You can't {action[0]} '{action[1].title()}'.")
@@ -177,10 +192,12 @@ def run_game():
             # TODO: It should also return the item_key (dict key)
             if len(action) == 1:  # No item provided
                 print(
-                    "Use what? \nYou need to specify an item to use. Try: use [item]")
+                    "Use what? \nYou need to specify an item to use. Try: use [item]"
+                )
             else:
                 (item_key, item) = get_item_from_inventory(
-                    items, action[1], player)
+                    items, action[1], player
+                )
 
                 if item_key is None:  # Item not found in inventory
                     print(f"You don’t have '{action[1]}' in your inventory!")
@@ -193,22 +210,29 @@ def run_game():
                         if exit is None:
                             print(f"There is no exit called '{use_on}'.")
                         else:
-                            exit_event = exit.get(
-                                "exit_openers", {}).get(item_key)
+                            exit_event = exit.get("exit_openers", {}).get(
+                                item_key
+                            )
                             if exit_event:
                                 exit["locked"] = False
                                 print(exit_event["open_description"])
                             else:
                                 print(
-                                    f"You can't use '{action[1]}' on '{use_on}'.")
+                                    f"You can't use '{
+                                        action[1]}' on '{use_on}'."
+                                )
                     elif item["category"] == "static_item_effect":
-                        static_item_data = get_static_item_from_static_item_name(
-                            use_on, static_items
+                        static_item_data = (
+                            get_static_item_from_static_item_name(
+                                use_on, static_items
+                            )
                         )
 
                         if static_item_data is None:
                             print(
-                                f"You can't use '{action[1].title()}' on '{use_on.title()}'."
+                                f"You can't use '{
+                                    action[1].title()}' on '{
+                                    use_on.title()}'."
                             )
                         else:
                             static_item_key, static_item = static_item_data
@@ -223,10 +247,12 @@ def run_game():
                                     end = time.time()
                                     length = end - start_time
                                     print(
-                                        f"Your game took {length:.2f} seconds.")
+                                        f"Your game took {length:.2f} seconds."
+                                    )
                                     # Pause before menu
                                     input(
-                                        "Press Enter to return to the main menu...")
+                                        "Press Enter to return to the main menu..."
+                                    )
                                     return "RETURN_TO_MENU"
                                 elif effect["type"] == "add_item":
                                     print(effect["message"])
@@ -239,10 +265,12 @@ def run_game():
                                     end = time.time()
                                     length = end - start_time
                                     print(
-                                        f"Your game took {length:.2f} seconds.")
+                                        f"Your game took {length:.2f} seconds."
+                                    )
 
                                     input(
-                                        "Press Enter to return to the main menu...")
+                                        "Press Enter to return to the main menu..."
+                                    )
                                     return "RETURN_TO_MENU"
         elif action[0] == "look_around":
             print_entire_room(current_room, static_items)
@@ -365,8 +393,9 @@ def attack_static_item(action, static_item_name, static_items):
 def get_static_item_from_static_item_name(static_item_name, static_items):
     static_item_name = static_item_name.lower()  # Normalize input
     for static_item_key in static_items:
-        current_static_item_name = static_items[static_item_key]["name"].lower(
-        )
+        current_static_item_name = static_items[static_item_key][
+            "name"
+        ].lower()
         if current_static_item_name == static_item_name:
             return (static_item_key, static_items[static_item_key])
     return None  # Ensure it always returns a value
@@ -394,7 +423,9 @@ def open_static_item(action, static_item_name, static_items, player):
 def get_static_item_key_from_static_item_name(static_item_name, static_items):
     static_item_name = static_item_name.lower()  # Normalize input to lowercase
     for static_item_key, static_item in static_items.items():
-        if static_item["name"].lower() == static_item_name:  # Compare in lowercase
+        if (
+            static_item["name"].lower() == static_item_name
+        ):  # Compare in lowercase
             return static_item_key
     return None  # Prevents KeyError if no match is found
 

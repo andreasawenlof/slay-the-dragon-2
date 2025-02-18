@@ -1,117 +1,125 @@
-Slay the Dragon - A Text-Based RPG
+# Slay the Dragon - A Text-Based RPG
 
-Overview
+![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Slay the Dragon is a text-based role-playing game where players navigate through multiple rooms, collecting items and solving challenges to ultimately defeat a mighty dragon. The game structure is inspired by classic adventure games, particularly The Legend of Zelda on the NES, incorporating elements like locked doors requiring keys, strategic item collection, and an epic boss battle.
+## Introduction
 
-UX
+**Slay the Dragon** is a classic **text-based adventure game** where players must explore a mysterious dungeon, solve puzzles, and collect items to face the final challenge: **the dragon**. Inspired by classic RPGs like **Zelda**, this game encourages exploration, problem-solving, and strategic thinking.
 
-The Idea
+---
 
-The game revolves around exploration and puzzle-solving within a dungeon-like environment. Players must carefully choose their actions, gather necessary items, and strategically plan their approach to reach the final challenge: slaying the dragon.
+## Gameplay Overview
 
-The inspiration comes from classic adventure games, incorporating logical problem-solving with simple but engaging mechanics. The challenge lies in finding the correct path, gathering useful tools, and making the right choices at critical moments.
+-   **Navigate through different rooms** using text commands.
+-   **Collect key items** to progress and unlock new areas.
+-   **Make strategic decisions** that impact the outcome of your journey.
+-   **Face a final challenge** that will test all the skills and items you've gathered along the way.
 
-Structure
+---
 
-The game consists of interconnected rooms, each with unique descriptions, interactive objects, and potential obstacles. Players must:
+## Features
 
-Navigate through different rooms using directional movement commands.
+✔ **Multiple rooms to explore** – each with its own unique descriptions and interactions.  
+✔ **Item collection** – pick up weapons, keys, and tools to aid in your quest.  
+✔ **Dynamic text-based combat and interaction system.**  
+✔ **Classic RPG puzzle-solving elements.**  
+✔ **Immersive storytelling and an unpredictable journey.**  
+✔ **A final battle that rewards preparation and strategy.**
 
-Collect items like swords and keys to unlock doors and prepare for the final encounter.
+---
 
-Interact with the environment by examining objects, opening chests, and making strategic decisions.
+## Controls & Commands
 
-Battle the dragon using acquired weapons, where using the wrong weapon results in failure.
+Players interact with the game using simple **text-based commands:**
 
-Features
+-   `walk [room name]` – Move to a different room.
+-   `look_around` – Inspect your surroundings.
+-   `take [item]` – Pick up an item.
+-   `use [item]` – Use an item from your inventory.
+-   `inventory` – View items you’re carrying.
+-   `attack [enemy]` – Engage in combat (if applicable).
+-   `open [object]` – Interact with static objects (like doors or chests).
+-   `exit` – Quit the game.
 
-Existing Features
+---
 
-Room Exploration - Players can move between rooms, discovering new areas and obstacles.
+## Game Flowchart
 
-Item Collection & Inventory Management - Items like swords and keys are required for progression.
+Here’s a visual representation of the game’s structure:
 
-Puzzle Solving - Certain doors are locked and require specific keys or actions to open.
+_**[Insert Flowchart Image Here]**_
 
-Combat System - A simple battle mechanic where using the correct weapon is necessary to win.
+---
 
-Future Features
+## Technologies Used
 
-Expanded Room System - Adding more rooms with unique challenges and hidden items.
+-   **Python** – Core game logic.
+-   **JSON** – Stores game data (rooms, items, interactions).
+-   **prompt_toolkit** – Handles user input for a smooth experience.
 
-More Complex Enemy Interactions - Introducing additional creatures with different strengths and weaknesses.
+---
 
-Multiple Endings - Varying outcomes based on player choices and item usage.
+## Installation & Running the Game
 
-Technologies Used
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/yourusername/slay-the-dragon.git
+    ```
+2. Navigate to the project directory:
+    ```sh
+    cd slay-the-dragon
+    ```
+3. Install dependencies:
+    ```sh
+    pip install -r requirements.txt
+    ```
+4. Run the game:
+    ```sh
+    python run.py
+    ```
 
-Python - Core programming language used for the game's logic.
+---
 
-JSON - Used for storing game data, including rooms, items, and interactions.
+## Testing & Debugging
 
-Prompt Toolkit - Enhances the command-line interface for a better player experience.
+-   **Manual playtesting** – Ensured the game works as expected.
+-   **Edge case handling** – Checked for invalid inputs and errors.
+-   **PEP8 validation** – Confirmed code follows best practices.
 
-Testing
+---
 
-Manual Testing - The game was tested by:
+## Deployment
 
-Navigating through all available rooms.
+This project was deployed using **Code Institute’s mock terminal** on **Heroku**:
 
-Collecting and using items.
+1. Fork or clone this repository.
+2. Create a new Heroku app.
+3. Set the buildpacks to **Python** and **NodeJS** in that order.
+4. Link the Heroku app to this repository.
+5. Click **Deploy**.
 
-Attempting invalid commands to check error handling.
+---
 
-Ensuring the win/loss conditions trigger correctly.
+## Future Enhancements
 
-Validator Testing
+🚀 **Expand the dungeon** with more rooms and challenges.  
+🚀 **Add interactive NPCs** that offer hints or side quests.  
+🚀 **Introduce enemy AI** for more dynamic combat.
 
-Code was checked using PEP8 to ensure compliance with Python best practices.
+---
 
-Bugs & Fixes
+## Credits
 
-Solved Bugs
+-   **Game Concept & Development** – Your Name
+-   **Inspiration** – Classic RPGs like **Zelda**, **D&D**, and retro text adventures.
+-   **Resources & Libraries** – Python, prompt_toolkit, JSON.
 
-Index Errors - Fixed an issue where room navigation caused crashes due to missing keys.
+---
 
-Incorrect Item Handling - Ensured that item use correctly affects the game state.
+## License
 
-Combat Logic Issues - Addressed a problem where using the incorrect weapon against the dragon did not trigger a failure message properly.
+This project is licensed under the **MIT License** – feel free to modify and expand upon it!
 
-Remaining Bugs
+---
 
-No known remaining issues.
-
-Deployment
-
-This project was deployed using Code Institute's mock terminal on Heroku.
-
-Steps for Deployment
-
-Fork or clone this repository.
-
-Create a new Heroku app.
-
-Set the buildpacks to:
-
-heroku/python
-
-heroku/nodejs
-
-Create a Config Var called PORT and set it to 8000.
-
-Connect the GitHub repository to Heroku.
-
-Deploy the application.
-
-Credits
-
-Game Concept & Development: [Your Name]
-
-Code Institute: For the deployment template and educational resources.
-
-Zelda NES: Inspiration for the dungeon-like gameplay mechanics.
-
-Acknowledgments
-
-Special thanks to Code Institute for providing the framework for this project and to all playtesters for their valuable feedback!
+**_Are you ready to face the unknown and Slay the Dragon?_** ⚔️🔥

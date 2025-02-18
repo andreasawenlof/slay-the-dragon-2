@@ -61,20 +61,4 @@ This document outlines additional test cases focusing on **error handling, inval
 | **7. Entering `inventory` when inventory is empty**                                      | Should print **"You have nothing in your inventory."**                         | Prints out empty array, nothing.                 | ✅ (fixed)    | Fixed by checking if inventory is empty and printing a message instead of showing an empty list.                                                                                                                                                                                                                                                                                |
 | **8. Trying to `open` something that isn't openable (`open dragon`)**                    | Should print **"You can't open that."** instead of crashing                    | Game Crashes                                     | ✅ (fixed)    | Fixed by checking if the static item exists before calling `open_static_item()`. If the item does not exist or is not openable, the game now prints `"You can't open '[item]'."` instead of crashing.                                                                                                                                                                           |
 | **9. Trying to `attack` a non-attackable object (`attack door`)**                        | Should print **"You can’t attack that."** instead of crashing                  | Game Crashes                                     | ✅ (fixed)    | Fixed by checking if the static item exists before calling `attack_static_item()`. If the item does not exist or cannot be attacked, the game now prints `"You can't attack '[item]'."` instead of crashing.                                                                                                                                                                    |
-| **10. Winning the game (`use mighty_sword on dragon`)**                                  | Should **quit the game or return to menu** instead of continuing               | Goes back to prompt "What to do?"                | ❌            | -                                                                                                                                                                                                                                                                                                                                                                               |
-
----
-
-## Next Steps
-
-1️⃣ **Test all cases** and document outcomes.  
-2️⃣ **Fix any crashes or incorrect behavior** (write fixes under "Fix Documentation").  
-3️⃣ **Retest after fixing** to confirm everything works properly.
-
----
-
-🚀 **Once all tests pass, we’ll be golden!** Now go break things, babe! 💪😏
-
-## Conclusion
-
-All major functionalities should be tested before final submission. ✅
+| **10. Winning the game (`use mighty_sword on dragon`)**                                  | Should **quit the game or return to menu** instead of continuing               | Goes back to prompt "What to do?"                | ✅ (fixed)    | Added a menu and added so player needs to press return after won or lost the game to return to menu.                                                                                                                                                                                                                                                                            |

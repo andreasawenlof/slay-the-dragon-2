@@ -89,7 +89,9 @@ _**![Flowchart](documents/flowchart.png)**_
 
 For detailed testing documentation, including **edge cases, error handling, and game-breaking scenarios**, please refer to:
 
-## 📄 **[testing.md](documents/TESTING.md)**
+#### **[TESTING.md](documents/TESTING.md)**
+
+---
 
 ## Deployment
 

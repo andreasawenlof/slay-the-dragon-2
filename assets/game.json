@@ -7,14 +7,14 @@
     "items": {
         "sword": {
             "category": "static_item_effect",
-            "name": "Mighty Sword",
-            "description": "A legendary blade, humming with an ancient power.",
+            "name": "Ancient Blade",
+            "description": "A sword rests at the altar, it looks a legendary blade, humming with an ancient power.",
             "use_on": {
                 "dragon": {
                     "effects": [
                         {
                             "type": "win_game",
-                            "message": "With a deep breath, you raise the Mighty Sword. As you charge, the blade ignites in radiant light. The Dragon roars, lunging toward you—but with a single, precise strike, you plunge the sword deep into its heart. A deafening cry fills the chamber before silence falls…, You have slain the Dragon.\n Congratulations you won the game!"
+                            "message": "With a deep breath, you raise the Ancient Blade. As you charge, the blade ignites in radiant light. The Dragon roars, lunging toward you—but with a single, precise strike, you plunge the sword deep into its heart. A deafening cry fills the chamber before silence falls…, You have slain the Dragon.\n Congratulations you won the game!"
                         }
                     ]
                 }
@@ -39,7 +39,7 @@
                     "effects": [
                         {
                             "type": "die",
-                            "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
+                            "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. \nThe fire tears you apart to a very slow DEATH. \nBetter luck next time!"
                         }
                     ]
                 }
@@ -77,7 +77,7 @@
             "items": ["wooden_sword"]
         }
     },
-    "instructions": "Navigate through rooms, collect items, and defeat the dragon!\nUse commands like 'walk', 'take', 'use', and 'open' to interact.\nType 'inventory' to see what you're carrying.\nGood luck, adventurer!",
+    "instructions": "Navigate through rooms, collect items, and defeat the dragon!\nUse commands like 'walk', 'take', 'use', and 'open', 'go_back', 'look_around' to interact.\nType 'inventory' or 'inv' to see what you're carrying.\nGood luck, adventurer!",
     "credits": "Game created by: Andréas Awenlöf\nInspired by classic text adventures\nThanks for playing!",
     "rooms": {
         "room1": {

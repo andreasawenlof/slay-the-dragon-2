@@ -78,7 +78,7 @@
         }
     },
     "instructions": "Navigate through rooms, collect items, and defeat the dragon!\nUse commands like 'walk', 'take', 'use', and 'open' to interact.\nType 'inventory' to see what you're carrying.\nGood luck, adventurer!",
-    "credits": "Game created by: Andréas Awen\nInspired by classic text adventures\nThanks for playing!",
+    "credits": "Game created by: Andréas Awenlöf\nInspired by classic text adventures\nThanks for playing!",
     "rooms": {
         "room1": {
             "name": "Dark Chamber",

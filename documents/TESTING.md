@@ -6,24 +6,24 @@ This document outlines the testing process for the **Slay the Dragon** text-base
 
 ## Test Cases
 
-| **Test Case**                             | **Expected Behavior**                                                              | **Actual Outcome**                                                                 | **Pass/Fail** |
-| ----------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------- |
-| **Game Starts Successfully**              | The game initializes, prints the starting room description, and prompts for input. | ✅ TBD                                                                             | ✅            |
-| **Check Inventory (Empty)**               | `inventory` or `inv` command shows an empty inventory.                             | ✅ (Should have a message saying no items)                                         | ✅            |
-| **Pick Up an Item**                       | `take [item]` adds the item to inventory and removes it from the room.             | ✅ TBD                                                                             | ✅            |
-| **Check Inventory (With Items)**          | `inventory` lists collected items.                                                 | ✅ TBD                                                                             | ✅            |
-| **Move to Another Room**                  | `walk [exit name]` transitions to the specified room.                              | ✅ TBD                                                                             | ✅            |
-| **Walk Into Locked Door**                 | `walk [locked exit]` prints a message that the door is locked.                     | ✅ TBD                                                                             | ✅            |
-| **Use Key on Locked Door**                | `use key` unlocks the door, allowing movement.                                     | ✅ Prob should display a description of it being open when using look_around again | ✅            |
-| **Walk Through Unlocked Door**            | `walk [exit name]` moves the player to the next room.                              | ✅ TBD                                                                             | ✅            |
-| **Look Around the Room**                  | `look_around` prints all exits, static items, and descriptions.                    | ✅ TBD                                                                             | ✅            |
-| **Interact With a Static Object (Chest)** | `open chest` prints the message and gives the player an item.                      | ✅ TBD                                                                             | ✅            |
-| **Attack Static Object (Chest)**          | `attack chest` prints a failure message.                                           | ✅ TBD                                                                             | ✅            |
-| **Use Wooden Sword on Dragon**            | `use wooden_sword` prints the death message and ends the game.                     | ✅ TBD                                                                             | ✅            |
-| **Use Mighty Sword on Dragon**            | `use mighty_sword` prints the victory message and ends the game.                   | ✅ TBD                                                                             | ✅            |
-| **Go Back to Previous Room**              | `go_back` moves the player back to the last room they were in.                     | ✅ TBD                                                                             | ✅            |
-| **Enter Invalid Command**                 | Entering an unknown command prints a list of valid commands.                       | ✅ TBD                                                                             | ✅            |
-| **Exit the Game**                         | `exit` quits the game.                                                             | ✅ TBD                                                                             | ✅            |
+| **Test Case**                             | **Expected Behavior**                                                              | **Actual Outcome**                                                                     | **Pass/Fail** |
+| ----------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | ------------- |
+| **Game Starts Successfully**              | The game initializes, prints the starting room description, and prompts for input. | “It did exactly that, no issues found.”                                                | ✅            |
+| **Check Inventory (Empty)**               | `inventory` or `inv` command shows an empty inventory.                             | ✅ (Should have a message saying no items)                                             | ✅            |
+| **Pick Up an Item**                       | `take [item]` adds the item to inventory and removes it from the room.             | “It did exactly that, no issues found.”                                                | ✅            |
+| **Check Inventory (With Items)**          | `inventory` lists collected items.                                                 | “It did exactly that, no issues found.”                                                | ✅            |
+| **Move to Another Room**                  | `walk [exit name]` transitions to the specified room.                              | “It did exactly that, no issues found.”                                                | ✅            |
+| **Walk Into Locked Door**                 | `walk [locked exit]` prints a message that the door is locked.                     | “It did exactly that, no issues found.”                                                | ✅            |
+| **Use Key on Locked Door**                | `use key` unlocks the door, allowing movement.                                     | ✅ Probably should display a description of it being open when using look_around again | ✅            |
+| **Walk Through Unlocked Door**            | `walk [exit name]` moves the player to the next room.                              | “It did exactly that, no issues found.”                                                | ✅            |
+| **Look Around the Room**                  | `look_around` prints all exits, static items, and descriptions.                    | “It did exactly that, no issues found.”                                                | ✅            |
+| **Interact With a Static Object (Chest)** | `open chest` prints the message and gives the player an item.                      | “It did exactly that, no issues found.”                                                | ✅            |
+| **Attack Static Object (Chest)**          | `attack chest` prints a failure message.                                           | “It did exactly that, no issues found.”                                                | ✅            |
+| **Use Wooden Sword on Dragon**            | `use wooden_sword` prints the death message and ends the game.                     | “It did exactly that, no issues found.”                                                | ✅            |
+| **Use Mighty Sword on Dragon**            | `use mighty_sword` prints the victory message and ends the game.                   | “It did exactly that, no issues found.”                                                | ✅            |
+| **Go Back to Previous Room**              | `go_back` moves the player back to the last room they were in.                     | “It did exactly that, no issues found.”                                                | ✅            |
+| **Enter Invalid Command**                 | Entering an unknown command prints a list of valid commands.                       | “It did exactly that, no issues found.”                                                | ✅            |
+| **Exit the Game**                         | `exit` quits the game.                                                             | “It did exactly that, no issues found.”                                                | ✅            |
 
 ## Additional Notes
 

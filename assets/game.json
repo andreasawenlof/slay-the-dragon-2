@@ -8,7 +8,7 @@
         "sword": {
             "category": "static_item_effect",
             "name": "Ancient Blade",
-            "description": "At the altar you can glimt something slotted in. At further examination notice it looks a legendary blade, humming with an ancient power.",
+            "description": "At the altar you can glimt something slotted in. At further examination you notice it looks a legendary blade, humming with an ancient power.",
             "use_on": {
                 "dragon": {
                     "effects": [

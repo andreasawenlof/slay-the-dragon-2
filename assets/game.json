@@ -8,7 +8,7 @@
         "sword": {
             "category": "static_item_effect",
             "name": "Ancient Blade",
-            "description": "A sword rests at the altar, it looks a legendary blade, humming with an ancient power.",
+            "description": "At the altar you can glimt something slotten in. At further examination you can see that it looks a legendary blade, humming with an ancient power.",
             "use_on": {
                 "dragon": {
                     "effects": [
@@ -148,7 +148,7 @@
         },
         "room5": {
             "name": "Sword Room",
-            "description": "An altar stands at the center, where a sword rests, bathed in faint light.",
+            "description": "An altar stands at the center, bathed in faint light.",
             "items": ["sword"],
             "static_items": [],
             "exits": [

@@ -8,13 +8,13 @@
         "sword": {
             "category": "static_item_effect",
             "name": "Mighty Sword",
-            "description": "A mighty Sword, so sharp it can cut through chese.",
+            "description": "A legendary blade, humming with an ancient power.",
             "use_on": {
                 "dragon": {
                     "effects": [
                         {
                             "type": "win_game",
-                            "message": "With a deep breath, you raise the Mighty Sword. As you charge, the blade ignites in radiant light. The Dragon roars, lunging toward you—but with a single, precise strike, you plunge the sword deep into its heart. A deafening cry fills the chamber before silence falls…, You have slain the Dragon."
+                            "message": "With a deep breath, you raise the Mighty Sword. As you charge, the blade ignites in radiant light. The Dragon roars, lunging toward you—but with a single, precise strike, you plunge the sword deep into its heart. A deafening cry fills the chamber before silence falls…, You have slain the Dragon.\n Congratulations you won the game!"
                         }
                     ]
                 }
@@ -22,22 +22,26 @@
         },
         "key": {
             "category": "exit_opener",
-            "name": "Key",
-            "description": "I wonder where it goes?"
+            "name": "Skeleton Key",
+            "description": "A skeletal key, cold to the touch.",
+            "allowed_action": {
+                "take": {
+                    "message": "You retrieve the key from the fallen warrior’s grasp."
+                }
+            }
         },
         "wooden_sword": {
             "category": "static_item_effect",
             "name": "Wooden Sword",
-            "description": "A Wooden Sword, seems useful",
+            "description": "A frail training sword, unlikely to hold up in real battle.",
             "use_on": {
                 "dragon": {
                     "effects": [
                         {
                             "type": "die",
-                            "message": "You die."
+                            "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
                         }
-                    ],
-                    "message": "You try to spank the dragon with the Wooden Sword and the dragon just seems to enjoy it and with a sneeze his fire consumes you. You are dead."
+                    ]
                 }
             }
         }
@@ -45,74 +49,200 @@
     "static_items": {
         "dragon": {
             "name": "Dragon",
-            "description": "A mighty Dragon with a breath of wildfire"
+            "description": "A monstrous being of flame and shadow, watching you with molten eyes.",
+            "not_allowed_actions": {
+                "take": {
+                    "message": "You cannot take the Dragon. It is far beyond your grasp."
+                }
+            }
         },
-        "chest": {
-            "name": "Chest",
-            "description": "A wooden old chest with a crack in it.",
+        "skeleton": {
+            "name": "Skeleton",
+            "description": "A lifeless adventurer, still clutching a key in its grip.",
             "allowed_action": {
                 "open": {
-                    "message": "You open the chest and inside you see something brown it looks like a piece of wood. With further examination you see that it's a Wooden Sword. You take the Sword..."
+                    "message": "You pry the key from the skeleton’s grasp and add it to your inventory."
                 }
             },
-            "not_allowed_actions": {
-                "attack": {
-                    "message": "You attack the chest, chest is still locked. "
+            "items": ["key"]
+        },
+        "chest": {
+            "name": "Treasure Chest",
+            "description": "An ornate wooden chest sits in the corner, its lock rusted away.",
+            "allowed_action": {
+                "open": {
+                    "message": "Inside, you find a Wooden Sword. It’s not much, but better than nothing. You add it to your inventory."
                 }
             },
-
             "items": ["wooden_sword"]
         }
     },
+    "instructions": "Navigate through rooms, collect items, and defeat the dragon!\nUse commands like 'walk', 'take', 'use', and 'open' to interact.\nType 'inventory' to see what you're carrying.\nGood luck, adventurer!",
+    "credits": "Game created by: Andréas Awen\nInspired by classic text adventures\nThanks for playing!",
     "rooms": {
         "room1": {
-            "name": "Room 1",
-            "description": "You found yourself in a dank cellar with a chilly breeze...",
-            "actions": [
-                {
-                    "TODO": "hitta på hur actionsobjektet ska se ut"
-                },
-                {}
-            ],
-            "static_items": ["chest"],
-            "items": ["key"],
+            "name": "Dark Chamber",
+            "description": "You awaken in a damp chamber, the air thick with moisture. A torch flickers dimly on the wall.",
+            "items": [],
+            "static_items": [],
             "exits": [
                 {
-                    "name": "Wooden door",
-                    "description": "You look around and see a wooden old door.",
+                    "name": "Wooden Door",
                     "destination": "room2",
-                    "locked": true,
-                    "locked_description": "You try to open it but to no avail, the door is locked but you see a rusty keyhole. Maybe there is something you can fit in it.",
-                    "exit_openers": {
-                        "key": {
-                            "open_description": "You put in the key and it fits perfectly, you turn it around and slowly open the wooden door. It creaks worse than your hungry stomach."
-                        }
-                    }
+                    "description": "A sturdy wooden door, slightly ajar, revealing darkness beyond.",
+                    "locked": false
                 },
                 {
-                    "name": "A dark hole",
-                    "description": "A hole in the wall i think I can squeeze through it.",
-                    "destination": "room1",
+                    "name": "Hidden Passage",
+                    "destination": "room4",
+                    "description": "A narrow, barely noticeable passage carved into the stone wall.",
                     "locked": false
                 }
             ]
         },
         "room2": {
-            "name": "A cozy room",
-            "description": "You found yourself in a room covered with hello kitty pink pillows, it looks very cozy.",
-            "actions": [
-                {
-                    "TODO": "hitta på hur actionsobjektet ska se ut"
-                }
-            ],
-            "items": ["sword"],
-            "static_items": ["dragon"],
-
+            "name": "Skeleton Room",
+            "description": "An eerie silence fills the room. A fallen warrior lies motionless, clutching something in his hand.",
+            "items": [],
+            "static_items": ["skeleton"],
             "exits": [
                 {
-                    "name": "A metal door",
-                    "description": "A sturdy metal door, I might be able to budge it with a bit of force.",
-                    "destination": "room1"
+                    "name": "Eastern Door",
+                    "destination": "room5",
+                    "description": "A heavy door with intricate carvings, leading further into the unknown.",
+                    "locked": false
+                },
+                {
+                    "name": "Dark Chamber",
+                    "destination": "room1",
+                    "description": "The way back to where you first woke up, dimly lit by a flickering torch.",
+                    "locked": false
+                }
+            ]
+        },
+        "room4": {
+            "name": "Central Hub",
+            "description": "A vast stone hall with multiple corridors branching off in different directions.",
+            "items": [],
+            "static_items": [],
+            "exits": [
+                {
+                    "name": "West Wing",
+                    "destination": "room6",
+                    "description": "A broad archway leading to what appears to be an old storage area.",
+                    "locked": false
+                },
+                {
+                    "name": "North Path",
+                    "destination": "room5",
+                    "description": "A narrow corridor that seems to glow faintly at the end.",
+                    "locked": false
+                },
+                {
+                    "name": "East Path",
+                    "destination": "room1",
+                    "description": "A shadowy path leading back to the damp chamber.",
+                    "locked": false
+                }
+            ]
+        },
+        "room5": {
+            "name": "Sword Room",
+            "description": "An altar stands at the center, where a sword rests, bathed in faint light.",
+            "items": ["sword"],
+            "static_items": [],
+            "exits": [
+                {
+                    "name": "Central Hub",
+                    "destination": "room4",
+                    "description": "A worn stone path leading back to the heart of the dungeon.",
+                    "locked": false
+                },
+                {
+                    "name": "Skeleton Room",
+                    "destination": "room2",
+                    "description": "A grim passage filled with the stench of decay.",
+                    "locked": false
+                }
+            ]
+        },
+        "room6": {
+            "name": "Treasure Room",
+            "description": "A forgotten treasure chest sits abandoned in the middle of the chamber.",
+            "items": [],
+            "static_items": ["chest"],
+            "exits": [
+                {
+                    "name": "Central Hub",
+                    "destination": "room4",
+                    "description": "A dimly lit hallway leading back to the main chamber.",
+                    "locked": false
+                },
+                {
+                    "name": "Dark Stairway",
+                    "destination": "room7",
+                    "description": "A steep, spiraling stairway descending into darkness.",
+                    "locked": false
+                }
+            ]
+        },
+        "room7": {
+            "name": "Mysterious Corridor",
+            "description": "Faint whispers echo through the air as you proceed deeper into the unknown.",
+            "items": [],
+            "static_items": [],
+            "exits": [
+                {
+                    "name": "Boss Room",
+                    "destination": "room8",
+                    "description": "An intimidating path leading towards an ominous iron door.",
+                    "locked": false
+                },
+                {
+                    "name": "Treasure Room",
+                    "destination": "room6",
+                    "description": "A way back to the chamber filled with forgotten riches.",
+                    "locked": false
+                }
+            ]
+        },
+        "room8": {
+            "name": "Boss Door Room",
+            "description": "An enormous iron door looms ahead, the keyhole shaped like a skull.",
+            "items": [],
+            "static_items": [],
+            "exits": [
+                {
+                    "name": "Mysterious Corridor",
+                    "destination": "room7",
+                    "description": "A long, eerie corridor filled with echoes from the past.",
+                    "locked": false
+                },
+                {
+                    "name": "Boss Door",
+                    "destination": "room9",
+                    "description": "A massive, skull-adorned iron door that radiates an ominous presence.",
+                    "locked": true,
+                    "locked_description": "You grip the handle, but it doesn’t budge. The door stands firm, sealed by an unseen force. Your eyes trail to the intricate, skeleton-shaped keyhole—an invitation, a challenge. Something must fit... but what?",
+                    "exit_openers": {
+                        "key": {
+                            "open_description": "The key clicks into place, turning with a slow, agonizing grind of ancient mechanisms. The door creaks open, revealing a darkness that feels almost… alive."
+                        }
+                    }
+                }
+            ]
+        },
+        "room9": {
+            "name": "Dragon’s Lair",
+            "description": "A vast cavern filled with gold and bones. The Dragon sleeps in the center, its massive form blocking your only way out.",
+            "items": [],
+            "static_items": ["dragon"],
+            "exits": [
+                {
+                    "name": "Boss Door Room",
+                    "destination": "room8",
+                    "description": "The way back to the iron doors, now feeling much smaller in comparison to the lair.",
+                    "locked": false
                 }
             ]
         }

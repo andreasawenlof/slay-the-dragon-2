@@ -36,13 +36,65 @@ Static Items:
 
 """
 import json
+import time
 from prompt_toolkit import prompt
 
 with open("./assets/game.json") as f:
     game_data = json.load(f)
 
 
-# print("Starting Room", game_data["starting_room"])
+def reset_game():
+    """ Reloads game data to fully reset the game state. """
+    global game_data, rooms_data, starting_room_key, previous_room, current_room, player, items, static_items
+
+    with open("./assets/game.json") as f:  # Reload from JSON
+        game_data = json.load(f)
+
+    rooms_data = game_data["rooms"]
+    starting_room_key = game_data["starting_room"]
+    previous_room = None
+    current_room = rooms_data[starting_room_key]
+    player = game_data["player"]
+    items = game_data["items"]
+    static_items = game_data["static_items"]
+
+    print("\n New game started!\n")
+
+
+def show_menu():
+    while True:
+        print("\n=== Main Menu ===")
+        print("1. New Game")
+        print("2. Instructions")
+        print("3. Credits")
+        print("4. Exit")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == "1":
+            reset_game()
+            run_game()
+        elif choice == "2":
+            show_instructions()
+        elif choice == "3":
+            show_credits()
+        elif choice == "4":
+            print("Thanks for playing! Goodbye!")
+            return
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
+
+def show_instructions():
+    print("\n=== Instructions ===")
+    print(game_data["instructions"])
+    input("Press Enter to return to the menu...")
+
+
+def show_credits():
+    print("\n=== Credits ===")
+    print(game_data["credits"])
+    input("Press Enter to return to the menu...")
 
 
 def run_game():
@@ -53,6 +105,7 @@ def run_game():
     player = game_data["player"]
     items = game_data["items"]
     static_items = game_data["static_items"]
+    start_time = time.time()
 
     print_room(current_room)
     print_static_items_from_room(current_room, static_items)
@@ -64,7 +117,14 @@ def run_game():
 
         # Got this solution by stackflow, see readme
         action = answer.split(maxsplit=1)
-        action[0] = action[0].lower()
+
+        if len(action) > 0:
+            action[0] = action[0].lower()
+        else:
+            action = [" "]
+
+        if len(action) > 1:
+            action[1] = action[1].lower()
 
         # Exit the game
         if action[0] == "exit":
@@ -83,7 +143,10 @@ def run_game():
                     "Walk where?\nYou need to specify where to walk. Try: walk [exit]")
             else:
                 exit = select_exit(action[1], current_room)
-                if exit["locked"]:
+                if exit is None:  # Exit doesn't exist
+                    print(
+                        f"There is no exit named " + action[1] + " in this room.")
+                elif exit["locked"]:
                     print(exit["locked_description"])
                 else:
                     previous_room = current_room
@@ -97,25 +160,48 @@ def run_game():
                     "Take what? \nYou need to specify what to take. Try: take [item]")
             else:
                 item_key = get_item_key_from_item_name(action[1], items)
-                if item_key not in current_room["items"]:
-                    print(f"There is no '{action[1]}' here.")
+                static_item_key = get_static_item_key_from_static_item_name(
+                    action[1], static_items)
+                if static_item_key in current_room["static_items"]:
+                    print(
+                        f"I can't put {action[1].title()} in my pocket, it doesn't fit.")
+                elif item_key not in current_room["items"]:
+                    print(f"I can't take {action[1].title()}.")
                 else:
                     take_item(action[1], current_room, items, player)
-                    print(f"You take the.... {action[1]}")
+                    print(f"You take the.... {action[1].title()}")
 
-        elif action[0] == "attack":
-            if len(action) == 1:  # No item provided
+        elif action[0] == "attack" or action[0] == "open":
+            if len(action) == 1:  # No target provided
                 print(
-                    "Attack what? \nYou need to specify what you want to attack. Try: attack [item]")
+                    f"{action[0].capitalize()} what? \nYou need to specify what to {action[0]}. Try: {action[0]} [item]")
             else:
-                attack_static_item(action[0], action[1], static_items)
+                static_item_data = get_static_item_from_static_item_name(
+                    action[1], static_items)
 
-        elif action[0] == "open":
-            if len(action) == 1:  # No item provided
-                print(
-                    "Open what? \nYou need to specify what to open. Try: open [item]")
-            else:
-                open_static_item(action[0], action[1], static_items, player)
+                if static_item_data is None:
+                    print(f"You can't {action[0]} '{action[1].title()}'.")
+                else:
+                    static_item_key, static_item = static_item_data
+
+                    # ✅ Show message if action is allowed
+                    if action[0] in static_item.get("allowed_action", {}):
+                        print(static_item["allowed_action"][action[0]]
+                              ["message"])  # Print success message
+                        if action[0] == "open":  # If opening, move items to player
+                            for item_key in static_item.get("items", []):
+                                add_item_key_to_player_inventory(
+                                    item_key, player)
+                            static_item["items"] = []
+
+                    # ❌ Show message if action is NOT allowed
+                    elif action[0] in static_item.get("not_allowed_actions", {}):
+                        # Print failure message
+                        print(static_item["not_allowed_actions"]
+                              [action[0]]["message"])
+
+                    else:
+                        print(f"You can't {action[0]} '{action[1].title()}'.")
 
         elif action[0] == "use":
             # TODO: It should also return the item_key (dict key)
@@ -130,7 +216,7 @@ def run_game():
                     print(f"You don’t have '{action[1]}' in your inventory!")
                 else:
                     use_on = prompt(
-                        "What do you want to use the item with? \n")
+                        "What do you want to use " + action[1] + " with? \n")
                     if item["category"] == "exit_opener":
                         exit = select_exit(use_on, current_room)
                         if exit is None:
@@ -150,7 +236,7 @@ def run_game():
 
                         if static_item_data is None:
                             print(
-                                f"You can't use '{action[1]}' on '{use_on}'.")
+                                f"You can't use '{action[1].title()}' on '{use_on.title()}'.")
                         else:
                             static_item_key, static_item = static_item_data
                             item_effects = item["use_on"].get(
@@ -158,7 +244,14 @@ def run_game():
                             for effect in item_effects:
                                 if effect["type"] == "die":
                                     print(effect["message"])
-                                    return
+                                    end = time.time()
+                                    length = end - start_time
+                                    print(
+                                        f"Your game took {length:.2f} seconds.")
+                                    # Pause before menu
+                                    input(
+                                        "Press Enter to return to the main menu...")
+                                    return "RETURN_TO_MENU"
                                     # TODO: Return closes the game loop but it's not the correct to loose the game
                                 elif effect["type"] == "add_item":
                                     print(effect["message"])
@@ -167,6 +260,14 @@ def run_game():
 
                                 elif effect["type"] == "win_game":
                                     print(effect["message"])
+                                    end = time.time()
+                                    length = end - start_time
+                                    print(
+                                        f"Your game took {length:.2f} seconds.")
+
+                                    input(
+                                        "Press Enter to return to the main menu...")
+                                    return "RETURN_TO_MENU"
 
                                     # TODO: Not yet implemented / this is a placeholder
 
@@ -174,7 +275,6 @@ def run_game():
 
                                     # use_inventory_item(action[1], )
         elif action[0] == "look_around":
-            print("You look around and see...")
             print_entire_room(current_room, static_items)
         elif action[0] == "go_back":
             if previous_room is None:
@@ -185,15 +285,15 @@ def run_game():
                 previous_room = None
         else:
             print("I don't know how to... " + action[0])
-            print('''I know how to: 
+            print('''I know how to:
                     walk [room name]
                     take [item name]
                     attack [name of something in the room]
                     open [name of something in the room]
                     look_around
                     go_back
-                    inventory     
-                    exit << to quit the game >> 
+                    inventory
+                    exit << to quit the game >>
                   ''')
 
 
@@ -205,12 +305,13 @@ def print_entire_room(room, static_items):
 
 def print_inventory(player, items):
     print("Checking the inventory...")
-    inventory_print_str = ""
-    for item_key in player["inventory"]:
-        item_name = items[item_key]["name"]
-        inventory_print_str += f"{item_name}, "
-    inventory_print_str = inventory_print_str.rstrip(", ")
-    print(inventory_print_str)
+    if not player["inventory"]:
+        print("You have nothing in your inventory.")
+        return
+
+    inventory_items = [items[item_key]["name"].title()
+                       for item_key in player["inventory"]]
+    print(", ".join(inventory_items))  # Make it look nice
 
 
 def print_static_items_from_room(room, static_items):
@@ -221,11 +322,15 @@ def print_static_items_from_room(room, static_items):
 
 # Function for printing out a selected room
 def print_room(room):
+    print("-------------------------------------------------------------------------------------------------")
     print(room["description"])
+    print("-------------------------------------------------------------------------------------------------")
+    print("You look around and see...")
     room_exits = room["exits"]
     for exit in room_exits:
-        print(exit["name"])
-        print(exit["description"])
+        print("=======================================================================================")
+        print(exit["name"] + " - " + exit["description"])
+        print("=======================================================================================")
 
 
 def print_item(room):
@@ -245,8 +350,9 @@ def take_item(item_name, room, items, player):
 
 
 def get_item_from_inventory(items, item_name, player):
+    item_name = item_name.lower()
     for item_key, item in items.items():
-        if item["name"] == item_name:
+        if item["name"].lower() == item_name:
             if item_key in player["inventory"]:
                 return (item_key, item)
     return None, None
@@ -265,9 +371,11 @@ def get_item_from_inventory(items, item_name, player):
 
 
 def get_item_key_from_item_name(item_name, items):
-    for key in items:
-        if item_name == items[key]["name"]:
+    item_name = item_name.lower()  # Normalize input to lowercase
+    for key, item in items.items():
+        if item["name"].lower() == item_name:  # Compare in lowercase
             return key
+    return None  # If no match is found
 
 
 def remove_item_key_from_room_items(item_key, room):
@@ -294,10 +402,13 @@ def attack_static_item(action, static_item_name, static_items):
 
 
 def get_static_item_from_static_item_name(static_item_name, static_items):
+    static_item_name = static_item_name.lower()  # Normalize input
     for static_item_key in static_items:
-        current_static_item_name = static_items[static_item_key]["name"]
+        current_static_item_name = static_items[static_item_key]["name"].lower(
+        )
         if current_static_item_name == static_item_name:
             return (static_item_key, static_items[static_item_key])
+    return None  # Ensure it always returns a value
 
 
 def print_not_allowed_message_from_static_item(static_item, action):
@@ -307,10 +418,11 @@ def print_not_allowed_message_from_static_item(static_item, action):
 
 def open_static_item(action, static_item_name, static_items, player):
     static_item_key = get_static_item_key_from_static_item_name(
-        static_item_name, static_items
-    )
+        static_item_name, static_items)
+
     static_item = static_items[static_item_key]
-    if action in static_item["allowed_action"].keys():
+
+    if "open" in static_item.get("allowed_action", {}):
         print_allowed_message_from_static_item(static_item, action)
         for item_key in static_item["items"]:
             add_item_key_to_player_inventory(item_key, player)
@@ -318,11 +430,11 @@ def open_static_item(action, static_item_name, static_items, player):
 
 
 def get_static_item_key_from_static_item_name(static_item_name, static_items):
-    for static_item_key in static_items:
-        for static_item_key in static_items:
-            current_static_item_name = static_items[static_item_key]["name"]
-            if current_static_item_name == static_item_name:
-                return static_item_key
+    static_item_name = static_item_name.lower()  # Normalize input to lowercase
+    for static_item_key, static_item in static_items.items():
+        if static_item["name"].lower() == static_item_name:  # Compare in lowercase
+            return static_item_key
+    return None  # Prevents KeyError if no match is found
 
 
 def print_allowed_message_from_static_item(static_item, action):
@@ -336,11 +448,10 @@ def print_allowed_message_from_static_item(static_item, action):
 
 
 def select_exit(exit_name, current_room):
+    exit_name = exit_name.lower()  # Normalize input
     for exit in current_room["exits"]:
-        if exit_name == exit["name"]:
+        if exit_name == exit["name"].lower():  # Normalize comparison
             return exit  # ✅ Returns the correct exit immediately
-    # ❌ Handles invalid exits properly
-    print(f"I don't know how to go to '{exit_name}'.")
     return None  # ✅ Always returns a value (prevents crash)
 
 
@@ -350,7 +461,8 @@ def room_from_exit(exit, rooms_data):
     return room
 
 
-run_game()
+if __name__ == "__main__":
+    show_menu()  # Start with menu instead of running game immediately
 
 
 # print('You said: %s' % answer)

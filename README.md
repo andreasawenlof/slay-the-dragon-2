@@ -2,6 +2,8 @@
 
 ![STD logo](documents/std_logo.png)
 
+### [Click to play the game](https://slay-the-dragon-2-20e6eae41f30.herokuapp.com/)
+
 ## Introduction
 
 **Slay the Dragon** is a classic **text-based adventure game** where players must explore a mysterious dungeon, solve puzzles, and collect items to face the final challenge: **the dragon**. Inspired by classic RPGs like **Zelda**, this game encourages exploration, problem-solving, and strategic thinking.
